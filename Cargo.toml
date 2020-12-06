@@ -1,0 +1,6 @@
+[workspace]
+
+members = [
+    "parsere",
+    "parsere-derive",
+]
