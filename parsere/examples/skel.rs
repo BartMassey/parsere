@@ -9,6 +9,7 @@ impl Eg {
     {
         use regex::Regex;
         use once_cell::unsync::Lazy;
+        const RE: &'static str = r"([1-9][0-9]*)";
         let re = Lazy::new(|| Regex::new(RE));
         let captures = match Lazy::force(&re) {
             Ok(re) => re.captures(txt).ok_or_else(|| {
