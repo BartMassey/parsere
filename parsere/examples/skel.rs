@@ -10,7 +10,6 @@ impl Eg {
         use regex::Regex;
         use once_cell::unsync::Lazy;
         let re = Lazy::new(|| Regex::new(RE));
-        const RE: &'static str = r"([0-9]+)";
         let captures = match Lazy::force(&re) {
             Ok(re) => re.captures(txt).ok_or_else(|| {
                 Box::new(parsere::Error::Match { re: RE, txt: txt.to_string() })
