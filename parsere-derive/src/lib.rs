@@ -43,7 +43,7 @@ fn derive_parsere(input: DeriveInput) -> Result<TokenStream, syn::Error> {
                 #name: captures
                     .get(#i)
                     .ok_or_else(|| {
-                        Box::new(parsere::Error::Capture {
+                        Box::new(parsere::Error::NoGroup {
                             re: #re_string,
                             txt: txt.to_string(),
                             index: #i,
@@ -64,7 +64,7 @@ fn derive_parsere(input: DeriveInput) -> Result<TokenStream, syn::Error> {
                 let re = Lazy::new(|| Regex::new(#re_string));
                 let captures = match Lazy::force(&re) {
                     Ok(re) => re.captures(txt).ok_or_else(|| {
-                        Box::new(parsere::Error::Match {
+                        Box::new(parsere::Error::Mismatch {
                             re: #re_string,
                             txt: txt.to_string(),
                         })

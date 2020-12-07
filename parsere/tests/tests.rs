@@ -20,13 +20,13 @@ fn match_err() {
     const TXT: &str = "50 xyzzy ";
     match Eg::parse_re(TXT) {
         Err(e) => {
-            match e.downcast_ref::<parsere::Error>() {
-                Some(parsere::Error::Match { ref re, ref txt }) => {
-                    assert_eq!(re, &RE);
-                    assert_eq!(txt, &TXT);
+            match e.downcast_ref() {
+                Some(&parsere::Error::Mismatch { re, ref txt }) => {
+                    assert_eq!(re, RE);
+                    assert_eq!(txt, TXT);
                 }
                 Some(e) => panic!("wrong error: {:?}", e),
-                None => panic!("downcast failed: {:?}", e),
+                None => panic!("downcast fail: {:?}", e),
             }
         }
         Ok(eg) => panic!("no error: {:?}", eg),
