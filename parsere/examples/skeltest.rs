@@ -31,7 +31,7 @@ const RE: &'static str = r"^([1-9][0-9]*)$";
 
 impl Eg {
     fn parse_re(txt: &str) ->
-        Result<Self, Box<dyn std::error::Error>>
+        Result<Self, Box<dyn std::error::Error + 'static>>
     {
         use regex::Regex;
         use once_cell::unsync::Lazy;
@@ -72,7 +72,7 @@ fn main() {
 
 fn main() {
     const TXT: &str = "50 ";
-    let result: Result<Eg, Box<dyn Error>> = Eg::parse_re(TXT);
+    let result: Result<Eg, Box<dyn Error + 'static>> = Eg::parse_re(TXT);
     match result {
         Err(e) => {
             match e.downcast_ref::<MyError>() {
