@@ -13,7 +13,7 @@ impl Eg {
         let re = Lazy::new(|| Regex::new(RE));
         let captures = match Lazy::force(&re) {
             Ok(re) => re.captures(txt).ok_or_else(|| {
-                Box::new(parsere::Error::Match { re: RE, txt: txt.to_string() })
+                Box::new(parsere::Error::Mismatch { re: RE, txt: txt.to_string() })
             })?,
             Err(e) => return Err(Box::new(e.clone())),
         };
@@ -21,7 +21,7 @@ impl Eg {
             x: captures
                 .get(1)
                 .ok_or_else(|| {
-                    Box::new(parsere::Error::Capture { re: RE, txt: txt.to_string(), index: 1 })
+                    Box::new(parsere::Error::NoGroup { re: RE, txt: txt.to_string(), index: 1 })
                 })?
                 .as_str()
                 .parse()?,
