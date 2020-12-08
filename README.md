@@ -6,5 +6,6 @@ of text into a struct using a regular expression. The
 `parsere-derive` crate does most of the work using a
 procedural derive macro.
 
-This code is very much a work-in-progress: nothing is even
-close to done yet.
+This code is very much a work-in-progress. It seems to be
+working, but needs a complete API redesign and then some
+documentation.
