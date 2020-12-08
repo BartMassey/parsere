@@ -32,3 +32,54 @@ fn match_err() {
         Ok(eg) => panic!("no error: {:?}", eg),
     }
 }
+
+const BADRE: &str = r"^(\d+)$";
+
+#[derive(ParseRe, Debug, PartialEq)]
+#[re(r"^(\d+)$")]
+struct BadReEg {
+    x: u8,
+    s: String,
+}
+
+#[test]
+fn group_err() {
+    const TXT: &str = "50";
+    match BadReEg::parse_re(TXT) {
+        Err(e) => {
+            match e.downcast_ref() {
+                Some(&parsere::Error::NoGroup { re, ref txt, index }) => {
+                    assert_eq!(re, BADRE);
+                    assert_eq!(txt, TXT);
+                    assert_eq!(index, 2);
+                }
+                Some(e) => panic!("wrong error: {:?}", e),
+                None => panic!("downcast fail: {:?}", e),
+            }
+        }
+        Ok(eg) => panic!("no error: {:?}", eg),
+    }
+}
+
+#[derive(ParseRe, Debug, PartialEq)]
+#[re(r"^(\d+$")]
+struct NotReEg {
+    x: u8,
+}
+
+#[test]
+fn not_re_err() {
+    const TXT: &str = "50";
+    match NotReEg::parse_re(TXT) {
+        Err(e) => {
+            match e.downcast_ref() {
+                Some(&regex::Error::Syntax(_)) => {
+                    ()
+                }
+                Some(e) => panic!("wrong error: {:?}", e),
+                None => panic!("downcast fail: {:?}", e),
+            }
+        }
+        Ok(eg) => panic!("no error: {:?}", eg),
+    }
+}
