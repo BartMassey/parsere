@@ -1,4 +1,4 @@
-use proc_macro::{TokenStream};
+use proc_macro::TokenStream;
 use proc_macro2::Span;
 use syn::{parse_macro_input, DeriveInput, Data, Fields, LitStr, LitInt, Attribute};
 use quote::quote;
