@@ -8,6 +8,7 @@ struct Eg {
 }
 
 fn main() {
-    let eg = Eg::parse_re("50 xyzzy").unwrap();
+    let test = "50 xyzzy".to_string();
+    let eg = Eg::parse_re(&test).unwrap();
     println!("{:#?}", eg);
 }
