@@ -9,3 +9,10 @@ procedural derive macro.
 This code is very much a work-in-progress. It seems to be
 working, but needs a complete API redesign and then some
 documentation.
+
+# Acknowledgements
+
+This code is heavily inspired, at the very least, by the
+`builder` tutorial from the
+[`proc-macro-workshop`](https://github.com/dtolnay/proc-macro-workshop)
+tutorials.
